@@ -18,7 +18,10 @@ class ClipboardWatcher(threading.Thread):
     def run(self):
         recent_value = ""
         while not self._stopping:
-            tmp_value = pyperclip.paste()
+            try:
+                tmp_value = pyperclip.paste()
+            except:
+                pass
             if tmp_value != recent_value:
                 recent_value = tmp_value
                 if self._predicate(recent_value):
